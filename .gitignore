@@ -1,0 +1,31 @@
+# npm
+node_modules/
+*.log
+
+# 产出文件
+/dist/
+
+# 测试覆盖率
+coverage
+
+
+# Ignore module version
+package-lock.json
+
+
+# 编辑器、缓存
+.DS_Store
+*.zip
+.idea
+.vscode
+*.suo
+*.ntvs*
+*.njsproj
+*.swp
+*.sln
+
+# dotenv environment variables file
+.env
+
+/lib
+/index.js
