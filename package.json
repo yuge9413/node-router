@@ -1,0 +1,32 @@
+{
+  "name": "simple-router",
+  "version": "1.0.0",
+  "description": "a simple node route",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha",
+    "lint": "eslint --ext .js src",
+    "build": "babel src -d lib"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/yuge9413/node-router.git"
+  },
+  "keywords": [
+    "router",
+    "simple router",
+    "node router"
+  ],
+  "author": "wuxiaoyu",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/yuge9413/node-router/issues"
+  },
+  "homepage": "https://github.com/yuge9413/node-router#readme",
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-preset-env": "^1.7.0",
+    "eslint": "^5.4.0",
+    "jsdoc": "^3.5.5"
+  }
+}
