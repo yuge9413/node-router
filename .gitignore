@@ -11,7 +11,7 @@ coverage
 
 # Ignore module version
 package-lock.json
-yarn-lock.json
+yarn.lock
 yarn-error.log
 
 
