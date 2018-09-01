@@ -11,6 +11,8 @@ coverage
 
 # Ignore module version
 package-lock.json
+yarn-lock.json
+yarn-error.log
 
 
 # 编辑器、缓存
