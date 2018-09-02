@@ -10,7 +10,7 @@ const eventManage = new EventManage;
 /**
  * @class Router
  * 路由类
- * 注册，触发 路由
+ * 注册，分发 路由
  */
 class Router {
     /**
@@ -28,6 +28,7 @@ class Router {
         // 请求的路径
         this.path = '';
 
+        // 绑定上下文
         this.init.bind(this);
     }
 
@@ -114,18 +115,18 @@ class Router {
      * const router = new Router;
      * router.routes({
      *     '/index/getdata': {
-     * 		   method: 'GET',
+     *         method: 'GET',
      *         callback: (req, res, param) => {
-     * 		   	   res.end('xxx')
+     *             res.end('xxx')
      *         }
-     * 	   }
+     *     }
      * })
      * 
      * or 
      * 
      * router.routes({
      *     '/index/getdata': (req, res, param) => {
-     * 	       res.end('xxx')
+     *         res.end('xxx')
      *     }
      * }, 'GET')
      */
@@ -159,7 +160,7 @@ class Router {
      * const router = new Router;
      * router.get({
      *     '/index/getdata': (req, res, param) => {
-     * 	       res.end('xxx')
+     *         res.end('xxx')
      *     }
      * })
      */
@@ -175,7 +176,7 @@ class Router {
      * const router = new Router;
      * router.post({
      *     '/index/getdata': (req, res, param) => {
-     * 	       res.end('xxx')
+     *         res.end('xxx')
      *     }
      * })
      */
