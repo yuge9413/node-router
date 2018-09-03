@@ -12,7 +12,7 @@ const eventManage = new EventManage;
  * 路由类
  * 注册，触发 路由
  */
-class Router {
+class RouterManage {
     /**
      * 定义属性默认
      */
@@ -223,5 +223,23 @@ class Router {
         eventManage.on('router-all-event', fn);
     }
 }
+
+/**
+ * 对外暴露api
+ * 保留私用方法
+ */
+const Router = (() => {
+    const router = new RouterManage;
+
+    return {
+        init: (...args) => router.init(...args),
+        add: (...args) => router.add(...args),
+        all: (...args) => router.all(...args),
+        get: (...args) => router.get(...args),
+        post: (...args) => router.post(...args),
+        routes: (...args) => router.routes(...args),
+        notFound: (...args) => router.routes(...args)
+    };
+})();
 
 export default Router;
