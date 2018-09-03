@@ -16,17 +16,14 @@ a simple node route
 
 ## 命令
 
-```shell
-    yarn install // 安装依赖
-    npm run build // 编译成es5
-    node app.js // 启动node服务
+```bash
+    yarn install    # 安装依赖
+    npm run build   # 编译成es5
+    node app.js     # 启动node服务
 ```
 
 ## 例子
 ```js
-/**
- * 测试路由
- */
 const http = require('http');
 const Router = require('./dist');
 const router = new Router;
@@ -67,7 +64,7 @@ router.routes({
 }, 'put');
 
 // 批量注册路由
-router.routes({    
+router.routes({
     '/': {
         callback: (req, res, param) => {
             res.end(`hello, id=${param.id}`);
