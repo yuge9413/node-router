@@ -25,8 +25,7 @@ a simple node route
 ## 例子
 ```js
 const http = require('http');
-const Router = require('./dist');
-const router = new Router;
+const router = require('./dist');
 
 // 注册单个路由
 router.add('/home', (req, res, param) => {
