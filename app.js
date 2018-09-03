@@ -2,8 +2,7 @@
  * 测试路由
  */
 const http = require('http');
-const Router = require('./dist');
-const router = new Router;
+const router = require('./dist');
 
 // 注册单个路由
 router.add('/home', (req, res, param) => {
@@ -57,7 +56,7 @@ router.routes({
 });
 
 // 注册404
-router.notFound((req, res, param) => {
+router.notFound((req, res) => {
     res.end('hello 404');
 });
 
