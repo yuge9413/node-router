@@ -8,7 +8,14 @@
  */
 class EventManage {
     constructor() {
-        this.eventList = {};
+        this.eventList = {
+            // 单次事件
+            once: [],
+            // 全局事件
+            'router-all-event': [],
+            // 无绑定事件
+            'router-not-event': []
+        };
     }
 
     /**
@@ -86,8 +93,14 @@ class EventManage {
      * @param  {...any} args 回调函数参数
      */
     trigger(name, ...args) {
-        const list = this.eventList[name];
-        const onceList = this.eventList['once'][name];
+        const list = this.eventList[name] || [];
+        const onceList = this.eventList['once'][name] || [];
+
+        // 处理全局事件
+        if (this.eventList['router-all-event']
+            && this.eventList['router-all-event'].length > 0) {
+            this.eventList['router-all-event'].map(item => item(...args));
+        }
 
         // 依次调用回调
         if (list && list.length > 0) {
@@ -98,7 +111,14 @@ class EventManage {
         // 执行一次后 删除事件
         if (onceList && onceList.length > 0) {
             onceList.map(item => item(...args));
-            delete this.eventList['once'][name];
+            return delete this.eventList['once'][name];
+        }
+
+        // 处理404
+        if (list.length === 0 
+            && onceList.length === 0
+            && this.eventList['router-all-event'].length === 0) {
+            this.eventList['router-not-event'].map(item => item(...args));
         }
     }
 }
