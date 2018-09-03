@@ -19,7 +19,7 @@ a simple node route
 ```bash
     yarn install    # 安装依赖
     npm run build   # 编译成es5
-    node app.js     # 启动node服务
+    node app.js     # 启动node服务
 ```
 
 ## 例子
