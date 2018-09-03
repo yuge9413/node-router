@@ -5,7 +5,7 @@ a simple node route
 
 ## api
 ```js
-    Router.init         // 初始化
+    Router.init         // 初始化
     Router.add          // 注册单个路由
     Router.routes       // 批量注册路由
     Router.get          // 批量注册get路由
