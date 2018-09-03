@@ -27,25 +27,23 @@ class Router {
         this.param = {};
         // 请求的路径
         this.path = '';
+        
+        /**
+         * 初始化路由 用于服务监听作为回调函数调用
+         * @param {Object} req request对象
+         * @param {Object} res response对象
+         * @example 
+         * const http = require('http');
+         * const routes = require('./routes');
+         * http.createServer(routes.init).listen(3000);
+         */
+        this.init = (req, res) => {
+            this.req = req;
+            this.res = res;
+            this.method = req.method.toUpperCase();
 
-        this.init.bind(this);
-    }
-
-    /**
-     * 初始化路由 用于服务监听作为回调函数调用
-     * @param {Object} req request对象
-     * @param {Object} res response对象
-     * @example 
-     * const http = require('http');
-     * const routes = require('./routes');
-     * http.createServer(routes.init).listen(3000);
-     */
-    init(req, res) {
-        this.req = req;
-        this.res = res;
-        this.method = req.method.toUpperCase();
-
-        this.parseParam();
+            this.parseParam();
+        };
     }
 
     /**
@@ -56,14 +54,19 @@ class Router {
      */
     parseParam() {
         const urlObject = url.parse(this.req.url, true);
-        this.path = urlObject.path;
+        this.path = urlObject.pathname;
+
+        // 处理url结尾的/
+        if (this.path !== '/') {
+            this.path = this.path.replace(/\/$/, '');
+        }
 
         // 处理GET请求参数
         // 发布事件
         if (this.method === 'GET') {
-            this.param = urlObject.query;
+            this.param = urlObject.query || {};
 
-            this.triggerRoute();
+            return this.triggerRoute();
         }
         
         // 处理GET请求参数
@@ -76,10 +79,15 @@ class Router {
             });
 
             this.req.on('end', () => {
-                this.param = querystring.parse(data);
+                this.param = data ? querystring.parse(data) : {};
                 this.triggerRoute();
             });
+
+            return;
         }
+
+        // 处理PUT, DELETE等其他类型请求
+        this.triggerRoute();
     }
 
     /**
@@ -101,6 +109,7 @@ class Router {
      * 默认注册全局
      */
     add(path, callBack, method = '',) {
+        path = /^\/.*$/.test(path) ? path : `/${path}`;
         const name = method ? `${method.toUpperCase()}.${path}` : path;
         eventManage.on(name, callBack);
     }
@@ -136,8 +145,13 @@ class Router {
 
         Object.keys(routes).map((item) => {
             const type = (method || routes[item].method || '').toUpperCase();
-            const path = item || '/';
+            let path = item || '/';
             let fn = routes[item].callback;
+
+            // 处理url结尾的/
+            if (path !== '/') {
+                path = path.replace(/\/$/, '');
+            }
 
             if (method) {
                 fn = routes[item];
@@ -145,6 +159,16 @@ class Router {
             
             if (typeof fn !== 'function') {
                 return console.warn(`path: ${path}'s callback is not a function`);
+            }
+
+            // 处理404，/404
+            if (path === '404' || path === '/404') {
+                this.notFound(fn);
+            }
+
+            // 处理全局路由 *， /*
+            if (path === '*' || path === '/*') {
+                this.all(fn);
             }
 
             this.add(path, fn, type);
@@ -181,6 +205,22 @@ class Router {
      */
     post(routes = {}) {
         this.routes(routes, 'POST');
+    }
+
+    /**
+     * 注册404
+     * @param {Function} fn 回调函数
+     */
+    notFound(fn = () => {}) {
+        eventManage.on('router-not-event', fn);
+    }
+
+    /**
+     * 注册全局路由
+     * @param {Function} fn 回调函数
+     */
+    all(fn = () => { }) {
+        eventManage.on('router-all-event', fn);
     }
 }
 
