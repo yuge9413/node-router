@@ -70,16 +70,17 @@ class RouterManage {
         const urlObject = url.parse(this.req.url, true);
         this.path = urlObject.pathname;
 
+        // 处理请求链接上的参数
+        this.param = urlObject.query || {};
+
         // 处理url结尾的/
         if (this.path !== '/') {
             this.path = this.path.replace(/\/$/, '');
         }
 
-        // 处理GET请求参数
-        // 发布事件
+        
+        // 发布get事件
         if (this.method === 'GET') {
-            this.param = urlObject.query || {};
-
             return this._triggerRoute();
         }
         
@@ -93,7 +94,10 @@ class RouterManage {
             });
 
             this.req.on('end', () => {
-                this.param = data ? querystring.parse(data) : {};
+                const param = data ? querystring.parse(data) : {};
+                Object.keys(param).map((key) => {
+                    this.param[key] = param[key];
+                });
                 this._triggerRoute();
             });
 
