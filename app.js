@@ -14,8 +14,13 @@ router.get({
     '/': (req, res, param) => {
         res.end(`hello, id=${param.id}`);
     },
+
     '/index': (req, res, param) => {
         res.end(`hello index, id=${param.id}`);
+    },
+
+    '/index2/:id/page/:name': (req, res, param) => {
+        res.end(`hello index2, id=${param.id}`);
     }
 });
 
@@ -65,4 +70,4 @@ router.all((req, res, param) => {
     res.end(`hello all, id=${param.id}`);
 });
 
-http.createServer(router.init).listen(3001);
+http.createServer(router.init).listen(3000);
