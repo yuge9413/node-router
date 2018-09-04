@@ -29,7 +29,7 @@ http://www.xxx.com/xxx?id=xxx
 ```
 2. 使用路由传递：
 ```html
-// 需要定义时使用:name的方式预先定义
+// 需要定义时使用:name的方式预先定义
 http://www.xxx.com/xxx/:id
 // or
 http://www.xxx.com/xxx/:id/xxx
