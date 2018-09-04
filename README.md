@@ -22,6 +22,23 @@ a simple node route
     node app.js     # 启动node服务
 ```
 
+## 带参数路由
+1. 使用传统参数传递方式传递：
+```html
+http://www.xxx.com/xxx?id=xxx
+```
+2. 使用路由传递：
+```html
+// 需要定义时使用:name的方式预先定义
+http://www.xxx.com/xxx/:id
+// or
+http://www.xxx.com/xxx/:id/xxx
+// 这时访问如下路由时会触发
+http://www.xxx.com/xxx/123
+// or
+http://www.xxx.com/xxx/222/xxx
+```
+
 ## 例子
 ```js
 const http = require('http');
@@ -34,11 +51,16 @@ router.add('/home', (req, res, param) => {
 
 // 批量注册get路由
 router.get({
-    '/': (req, res, param) => {
+    '/': (req, res, param) => {v
         res.end(`hello, id=${param.id}`);
     },
+
     '/index': (req, res, param) => {
         res.end(`hello index, id=${param.id}`);
+    },
+
+    '/index2/:id/page/:name': (req, res, param) => {
+        res.end(`hello index2, id=${param.id}`);
     }
 });
 
