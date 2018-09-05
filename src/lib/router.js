@@ -64,7 +64,7 @@ class RouterManage {
      * 分别处理GET请求，POST请求
      * 将处理后的参数保存为参数对象
      * 发布对应的事件
-     * @private 私有方法
+     * @private
      */
     _parseParam() {
         const urlObject = url.parse(this.req.url, true);
@@ -104,7 +104,7 @@ class RouterManage {
 
     /**
      * 路由分发
-     * @private 私有方法
+     * @private
      */
     _triggerRoute() {
         const events = [`${this.method}._!_.${this.path}`, this.path];
