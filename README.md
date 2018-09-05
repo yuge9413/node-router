@@ -14,9 +14,11 @@ a simple node route
     Router.notFound     // 批量注册404路由
 ```
 
-## 命令
+## 开发
 
 ```bash
+    git clone https://github.com/yuge9413/node-router.git
+    cd node-router
     yarn install    # 安装依赖
     npm run build   # 编译成es5
     node app.js     # 启动node服务
@@ -113,3 +115,4 @@ router.all((req, res, param) => {
 http.createServer(router.init).listen(3001);
 
 ```
+目前本项目功能已经全部完成，还剩下example、测试用例等部分还没有来的及做，等不忙了会抽时间补上！欢迎各位大佬的pr!
