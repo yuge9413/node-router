@@ -77,12 +77,6 @@ class RouterManage {
         if (this.path !== '/') {
             this.path = this.path.replace(/\/$/, '');
         }
-
-        
-        // 发布get事件
-        if (this.method === 'GET') {
-            return this._triggerRoute();
-        }
         
         // 处理GET请求参数
         // 发布事件
@@ -104,7 +98,7 @@ class RouterManage {
             return;
         }
 
-        // 处理PUT, DELETE等其他类型请求
+        // 触发GET,PUT, DELETE等其他类型请求
         this._triggerRoute();
     }
 
@@ -170,7 +164,7 @@ class RouterManage {
      * @param {string} method
      * 
      * 册路由不设定请求方法
-     * 默认注册全局
+     * 默认注册全类型路由
      */
     add(path, callBack, method = '',) {
         path = /^\/.*$/.test(path) ? path : `/${path}`;
